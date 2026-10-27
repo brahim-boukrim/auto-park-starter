@@ -1,6 +1,4 @@
 import {voituresInitiales} from "./data.js"
-
-localStorage.clear()
 const data= localStorage.getItem("data") && JSON.parse(localStorage.getItem("data"))!=="undefined" ? JSON.parse(localStorage.getItem("data")) :voituresInitiales
 const tbody=document.querySelector("#liste-voitures")
 
@@ -50,7 +48,7 @@ const afichier = ()=>{
         modifier.classList.add("button","button-edit")
         modifier.dataset.action="modifier"
         modifier.dataset.id=""+data[i].id
-        modifier.setAttribute("aria-label","Modifier ${data[i].marque} ${data[i].modele} ${data[i].immatriculation")
+        modifier.setAttribute("aria-label","Modifier ${data[i].marque} ${data[i].modele} ${data[i].immatriculation}")
         actions.appendChild(modifier)
         const suprimer=document.createElement('button')
         suprimer.type="button"
@@ -58,7 +56,7 @@ const afichier = ()=>{
         suprimer.classList.add("button","button-delete")
         suprimer.dataset.action="suprimer"
         suprimer.dataset.id=""+ data[i].id
-        suprimer.setAttribute("aria-label","Suprimer ${data[i].marque} ${data[i].modele} ${data[i].immatriculation")
+        suprimer.setAttribute("aria-label","Suprimer ${data[i].marque} ${data[i].modele} ${data[i].immatriculation}")
         actions.appendChild(suprimer)
         tr.appendChild(td1)
         tr.appendChild(td2)
@@ -67,6 +65,14 @@ const afichier = ()=>{
         tr.appendChild(td5)
         tr.appendChild(td6)
         tr.appendChild(td7)
+        suprimer.addEventListener("click",()=>{
+            const conf=confirm("do you want to delete this ?")
+            if(conf){
+            data.splice(i,1)
+            save()
+            afichier()
+            }
+        })
 
     }
     const mpt=document.querySelector("#etat-vide")
@@ -78,3 +84,7 @@ const afichier = ()=>{
     }
 }
 afichier()
+const save=()=>{
+    localStorage.setItem("data",JSON.stringify(data))
+}
+
