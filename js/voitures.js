@@ -2,7 +2,6 @@ import {voituresInitiales} from "./data.js"
 const data= localStorage.getItem("data") && JSON.parse(localStorage.getItem("data"))!=="undefined" ? JSON.parse(localStorage.getItem("data")) :voituresInitiales
 const tbody=document.querySelector("#liste-voitures")
 
-
 const idGen=()=>{
     let idd=1;
     while(true){
@@ -227,5 +226,33 @@ const save=()=>{
     localStorage.setItem("data",JSON.stringify(data))
 }
 
+const tri=document.querySelector("#tri-prix")
+tri.addEventListener('change',()=>{
+    if(tri.value=="croissant"){
+        const sortcroi=[...data]
+        for(let i=0;i<sortcroi.length;i++){
+            for(let j=0;j<sortcroi.length-1;j++){
+                if(sortcroi[j].prixJour<sortcroi[j+1].prixJour){
+                    [sortcroi[j],sortcroi[j+1]]=[sortcroi[j+1],sortcroi[j]]
+                }
+            }
+        }
+        afichier(sortcroi)
+    }
+    if(tri.value ==""){
+        afichier()
+    }
+    if(tri.value=="decroissant"){
+        const sortdec=[...data]
+        for(let i=0;i<sortdec.length;i++){
+            for(let j=0;j<sortdec.length-1;j++){
+                if(sortdec[j].prixJour> sortdec[j+1].prixJour){
+                    [sortdec[j],sortdec[j+1]]=[sortdec[j+1],sortdec[j]]
+                }
+            }
+        }
+        afichier(sortdec)
+    }
+})
 
 
