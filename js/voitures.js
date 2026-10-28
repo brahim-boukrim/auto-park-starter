@@ -1,7 +1,7 @@
 import {voituresInitiales} from "./data.js"
 const data= localStorage.getItem("data") && JSON.parse(localStorage.getItem("data"))!=="undefined" ? JSON.parse(localStorage.getItem("data")) :voituresInitiales
 const tbody=document.querySelector("#liste-voitures")
-
+var tabl=data;
 const idGen=()=>{
     let idd=1;
     while(true){
@@ -60,7 +60,7 @@ const ajouter=(e)=>{
         validCate.textContent="choose a categorie"
         return
     }
-    if(!/^([0-9]+|[0-9]+.[0-9]+)$/.test( prix.value)|| prix.value=="" ){
+    if(!/^([0-9]+|[0-9]+.[0-9]+)$/.test( prix.value) ){
         validPrix.textContent="invalid input"
         return
     }
@@ -72,7 +72,7 @@ const ajouter=(e)=>{
     categorie.value =""
     prix.value =""
     statut.value ="Disponible"
-    afichier()
+    afichier(lookupFunc(sortFunc(statFunc(catFunc(tabl)))))
 }
  const submit=document.querySelector('#bouton-enregistrer')
  submit.addEventListener('click',ajouter)
@@ -142,6 +142,7 @@ const afichier = (tab=data)=>{
         tr.appendChild(td6)
         tr.appendChild(td7)
         modifier.addEventListener("click",()=>{
+            document.querySelectorAll(".button-edit").forEach((elm)=>elm.removeEventListener("click",))
             let hold=i;
             let idddddd=tab[i].id
             const marque=document.querySelector('#marque')
@@ -180,12 +181,50 @@ const afichier = (tab=data)=>{
                 i=tab.findIndex(elm=>elm.id==idddddd)
                 e.preventDefault()
                 if(why){
+                    const validMarq=document.querySelector("#erreur-marque")
+                    const validMod=document.querySelector("#erreur-modele")
+                    const validCate=document.querySelector("#erreur-categorie")
+                    const validMat=document.querySelector("#erreur-immatriculation")
+                    const validPrix=document.querySelector("#erreur-prix-jour")
+                    
+                        validMarq.textContent=""
+                        validMod.textContent=""
+                        validMat.textContent=""
+                        validCate.textContent=""
+                        validPrix.textContent=""
+
+                    if(/^ +$/.test( marque.value)||marque.value==""){
+                        validMarq.textContent="invalid input"
+                        return modifie()
+                    }
+                    if(/^ +$/.test( modele.value)||modele.value==""){
+                        validMod.textContent="invalid input"
+                        return modifie()
+                    }
+                    if(!(/^AUTO-[0-9]+$/.test(immatriculation.value))||data.find(elm=>{
+                        if(elm.immatriculation==immatriculation.value&&elm.immatriculation!=tab[i].immatriculation){
+                            return elm
+                        }
+                    }
+                    )){
+                        validMat.textContent="invalid input"
+                        return modifie()
+                    }
+                    if(categorie.value ==""){
+                        validCate.textContent="choose a categorie"
+                        return modifie()
+                    }
+                    if(!/^([0-9]+|[0-9]+.[0-9]+)$/.test( prix.value) ){
+                        validPrix.textContent="invalid input"
+                        return modifie()
+                    }
                     tab[i].marque = marque.value
                     tab[i].modele= modele.value
                     tab[i].immatriculation = immatriculation.value
                     tab[i].categorie= categorie.value 
-                    tab[i].prixJour = prix.value
+                    tab[i].prixJour = Number(prix.value)
                     tab[i].statut = statut.value
+                    annuler.setAttribute("hidden","")
                     submit.textContent="Ajouter la voiture"
                     submit.removeEventListener("click",modifie)
                     submit.addEventListener("click", ajouter)
@@ -196,8 +235,11 @@ const afichier = (tab=data)=>{
                     prix.value =""
                     statut.value ="Disponible"
                     i=hold
+                    if(tab!=data){
+                        data[data.findIndex(elm=>elm.id==tab[i].id)]=tab[i]
+                    }
                     save()
-                    afichier()
+                    afichier(lookupFunc(sortFunc(statFunc(catFunc(tab)))))
                 }
             };
             submit.removeEventListener("click",ajouter)
@@ -206,9 +248,12 @@ const afichier = (tab=data)=>{
         suprimer.addEventListener("click",()=>{
             const conf=confirm("do you want to delete this ?")
             if(conf){
+                if(tab!=data){
+                    data.splice(data.findIndex(elm=>elm.id==tab[i].id),1)
+                }
             tab.splice(i,1)
             save()
-            afichier()
+            afichier(lookupFunc(sortFunc(statFunc(catFunc(tab)))))
             }
         })
 
@@ -227,32 +272,104 @@ const save=()=>{
 }
 
 const tri=document.querySelector("#tri-prix")
-tri.addEventListener('change',()=>{
+const sortFunc=(table)=>{
     if(tri.value=="croissant"){
-        const sortcroi=[...data]
+        const sortcroi=[...table]
         for(let i=0;i<sortcroi.length;i++){
             for(let j=0;j<sortcroi.length-1;j++){
-                if(sortcroi[j].prixJour<sortcroi[j+1].prixJour){
+                if(sortcroi[j].prixJour>sortcroi[j+1].prixJour){
                     [sortcroi[j],sortcroi[j+1]]=[sortcroi[j+1],sortcroi[j]]
                 }
             }
         }
-        afichier(sortcroi)
+        return sortcroi
     }
     if(tri.value ==""){
-        afichier()
+        return table
     }
     if(tri.value=="decroissant"){
-        const sortdec=[...data]
+        const sortdec=[...table]
         for(let i=0;i<sortdec.length;i++){
             for(let j=0;j<sortdec.length-1;j++){
-                if(sortdec[j].prixJour> sortdec[j+1].prixJour){
+                if(sortdec[j].prixJour< sortdec[j+1].prixJour){
                     [sortdec[j],sortdec[j+1]]=[sortdec[j+1],sortdec[j]]
                 }
             }
         }
-        afichier(sortdec)
+        return sortdec
+        
     }
+}
+tri.addEventListener('change',()=>{
+    afichier(lookupFunc(sortFunc(statFunc(catFunc(data)))))
 })
 
+const cate=document.querySelector("#filtre-categorie")
+const catFunc=(table)=>{
+    if(cate.value=="Citadine"){
+        let temp=table.filter(elm=>elm.categorie=="Citadine")
+        return temp
+    }
+    if(cate.value=="Berline"){
+        let temp=table.filter(elm=>elm.categorie=="Berline")
+        return temp
+    }
+    if(cate.value=="SUV"){
+        let temp=table.filter(elm=>elm.categorie=="SUV")
+        afichier(temp)
+        return temp
+    }
+    return table
+}
+cate.addEventListener("change",()=>{
+    afichier(lookupFunc(sortFunc(statFunc(catFunc(data)))))
+})
 
+const stat=document.querySelector("#filtre-statut")
+const statFunc=(table)=>{
+    if(stat.value=="Disponible"){
+        let temp=table.filter(elm=>elm.statut=="Disponible")
+        return temp
+    }
+    if(stat.value=="Louée"){
+        let temp=table.filter(elm=>elm.statut=="Louée")
+        return temp
+    }
+    if(stat.value=="En maintenance"){
+        let temp=table.filter(elm=>elm.statut=="En maintenance")
+        return temp
+    }
+    return table
+}
+stat.addEventListener("change",()=>{
+    afichier(lookupFunc(sortFunc(statFunc(catFunc(data)))))
+})
+
+const lookup=document.querySelector("#recherche")
+const lookupFunc=(table)=>{
+    let temp=table.filter(elm=>{
+        if(elm.marque.toLowerCase().replaceAll(" ","").includes(lookup.value.toLowerCase().replaceAll(" ",""))){
+            return elm
+        }
+        if(elm.modele.toLowerCase().replaceAll(" ","").includes(lookup.value.toLowerCase().replaceAll(" ",""))){
+            return elm
+        }
+        if(elm.immatriculation.toLowerCase().replaceAll(" ","").includes(lookup.value.toLowerCase().replaceAll(" ",""))){
+            return elm
+        }
+        
+    })
+    return temp
+}
+lookup.addEventListener("input",()=>{
+    afichier(lookupFunc(sortFunc(statFunc(catFunc(data)))))
+})
+
+const reset=document.querySelector("#reinitialiser-filtres")
+reset.addEventListener("click",()=>{
+    lookup.value=""
+    stat.value=""
+    cate.value=""
+    tri.value=""
+    afichier()
+})
