@@ -14,7 +14,6 @@ const idGen=()=>{
     return idd
 }
 
-
 const ajouter=(e)=>{
     e.preventDefault()
     
@@ -52,7 +51,7 @@ const ajouter=(e)=>{
         validMod.textContent="invalid input"
         return
     }
-    if(!(/^AUTO-[0-9]+$/.test(immatriculation.value))||data.find(elm=>elm.immatriculation==immatriculation.value)){
+    if(!(/^AUTO-[0-9]+$/.test(immatriculation.value.trim()))||data.find(elm=>elm.immatriculation==immatriculation.value)){
         validMat.textContent="invalid input"
         return
     }
@@ -141,8 +140,9 @@ const afichier = (tab=data)=>{
         tr.appendChild(td5)
         tr.appendChild(td6)
         tr.appendChild(td7)
-        modifier.addEventListener("click",()=>{
-            document.querySelectorAll(".button-edit").forEach((elm)=>elm.removeEventListener("click",))
+        const primeMod=()=>{
+            document.querySelectorAll(".button-edit").forEach((elm)=>elm.removeEventListener("click",primeMod))
+            document.querySelectorAll(".button-delete").forEach((elm)=>elm.removeEventListener("click",primeSup))
             let hold=i;
             let idddddd=tab[i].id
             const marque=document.querySelector('#marque')
@@ -201,7 +201,7 @@ const afichier = (tab=data)=>{
                         validMod.textContent="invalid input"
                         return modifie()
                     }
-                    if(!(/^AUTO-[0-9]+$/.test(immatriculation.value))||data.find(elm=>{
+                    if(!(/^AUTO-[0-9]+$/.test(immatriculation.value.trim()))||data.find(elm=>{
                         if(elm.immatriculation==immatriculation.value&&elm.immatriculation!=tab[i].immatriculation){
                             return elm
                         }
@@ -244,8 +244,11 @@ const afichier = (tab=data)=>{
             };
             submit.removeEventListener("click",ajouter)
             submit.addEventListener("click", modifie)
-        })
-        suprimer.addEventListener("click",()=>{
+            document.querySelectorAll(".button-edit").forEach((elm)=>elm.addEventListener("click",primeMod))
+            document.querySelectorAll(".button-delete").forEach((elm)=>elm.addEventListener("click",primeSup))
+        }
+        modifier.addEventListener("click",primeMod)
+        const primeSup=()=>{
             const conf=confirm("do you want to delete this ?")
             if(conf){
                 if(tab!=data){
@@ -255,15 +258,16 @@ const afichier = (tab=data)=>{
             save()
             afichier(lookupFunc(sortFunc(statFunc(catFunc(tab)))))
             }
-        })
+        }
+        suprimer.addEventListener("click",primeSup)
 
     }
     const mpt=document.querySelector("#etat-vide")
     if(tab.length==0){
-        mpt.style.display="block"
+        mpt.removeAttribute("hidden")
     }
     else{
-        mpt.style.display="hidden"
+        mpt.setAttribute("hidden","")
     }
 }
 afichier()
@@ -277,7 +281,7 @@ const sortFunc=(table)=>{
         const sortcroi=[...table]
         for(let i=0;i<sortcroi.length;i++){
             for(let j=0;j<sortcroi.length-1;j++){
-                if(sortcroi[j].prixJour>sortcroi[j+1].prixJour){
+                if(Number(sortdec[j].prixJour)> Number(sortdec[j+1].prixJour)){
                     [sortcroi[j],sortcroi[j+1]]=[sortcroi[j+1],sortcroi[j]]
                 }
             }
@@ -291,7 +295,7 @@ const sortFunc=(table)=>{
         const sortdec=[...table]
         for(let i=0;i<sortdec.length;i++){
             for(let j=0;j<sortdec.length-1;j++){
-                if(sortdec[j].prixJour< sortdec[j+1].prixJour){
+                if(Number(sortdec[j].prixJour)< Number(sortdec[j+1].prixJour)){
                     [sortdec[j],sortdec[j+1]]=[sortdec[j+1],sortdec[j]]
                 }
             }
@@ -316,7 +320,6 @@ const catFunc=(table)=>{
     }
     if(cate.value=="SUV"){
         let temp=table.filter(elm=>elm.categorie=="SUV")
-        afichier(temp)
         return temp
     }
     return table
