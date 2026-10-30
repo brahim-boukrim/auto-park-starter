@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPark – Dashboard</title>
+    <link href="./css/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-[#f4f6fa] m-0">
+    <header class="site-header bg-white pt-5 pb-0.5 border-b-2 border-b-gray-200">
+      <div class="header-content flex flex-wrap items-center justify-between mx-4 mb-5.5 gap-y-3 md:mx-36">
+        <a
+          class="brand flex items-center justify-between gap-3"
+          href="index.html"
+          aria-label="AutoPark — Accueil"
+        >
+          <span class="brand-mark text-2xl font-extrabold flex items-center justify-center w-11 h-11 rounded-xl bg-[#2855d7] text-white" aria-hidden="true">A<span>.</span></span>
+          <span class="flex flex-col justify-center gap-1 font-extrabold text-[22px]">AutoPark<small class="text-[9px] text-[#627184]">ATLAS AUTO</small></span>
+        </a>
+        <nav aria-label="Navigation principale" class="flex font-medium justify-between gap-4 mx-auto">
+          <a href="index.html" aria-current="page" class="text-[#2449b5] bg-[#ecf1ff] px-3 py-1 rounded-md">Dashboard</a>
+          <a href="voitures.html" class="text-[#627184] px-3 py-1 rounded-md hover:bg-[#f4f6fa]">Gestion du parc</a>
+        </nav>
+        <span class="agency-label text-sm hidden lg:block">Agence de location</span>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl p-4">
+        <h1 class="mb-4 text-2xl font-bold">Tableau de bord</h1>
+
+        <section class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 mb-5">
+
+    <div class="flex items-center gap-4 rounded-xl bg-white p-4">
+        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-[#ecf1ff] text-2xl text-[#2449b5]">
+            <i class="fa-solid fa-car"></i>
+        </div>
+        <div>
+            <p class="text-sm text-[#627184]">Total</p>
+            <p id="total" class="text-3xl font-bold">0</p>
+        </div>
+    </div>
+
+    <div class="flex items-center gap-4 rounded-xl bg-white p-4">
+        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-green-50 text-2xl text-green-700">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div>
+            <p class="text-sm text-[#627184]">Disponibles</p>
+            <p id="dispo" class="text-3xl font-bold">0</p>
+        </div>
+    </div>
+
+    <div class="flex items-center gap-4 rounded-xl bg-white p-4">
+        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-orange-50 text-2xl text-orange-700">
+            <i class="fa-solid fa-key"></i>
+        </div>
+        <div>
+            <p class="text-sm text-[#627184]">Louées</p>
+            <p id="louee" class="text-3xl font-bold">0</p>
+        </div>
+    </div>
+
+    <div class="flex items-center gap-4 rounded-xl bg-white p-4">
+        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-red-50 text-2xl text-red-700">
+            <i class="fa-solid fa-wrench"></i>
+        </div>
+        <div>
+            <p class="text-sm text-[#627184]">En maintenance</p>
+            <p id="maint" class="text-3xl font-bold">0</p>
+        </div>
+    </div>
+    <div class="revenue  flex items-center gap-4 rounded-xl bg-white p-4">
+        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-green-300 text-2xl text-green-900">
+            <i class="fa-solid fa-coins"></i>
+        </div>
+        <div>
+            <p class="text-sm text-[#627184]">revenu par jour</p>
+            <p id="money" class="text-3xl font-bold">0</p>
+        </div>
+    </div>
+
+</section>
+<section  class="max-w-7xl table-scroll ">
+    <div class="flex justify-center gap-3 ">
+       <div class="flex flex-col bg-white gap-0.5">
+            <label for="filtre-statut">Statut</label>
+            <select id="filtre-statut">
+              <option value="">Tous les statuts</option>
+              <option value="Disponible">Disponible</option>
+              <option value="Louée">Louée</option>
+              <option value="En maintenance">En maintenance</option>
+            </select>
+          </div>
+          <div class="flex flex-col bg-white gap-0.5">
+            <label for="filtre-categorie">Catégorie</label>
+            <select id="filtre-categorie">
+              <option value="">Toutes les catégories</option>
+              <option value="Citadine">Citadine</option>
+              <option value="Berline">Berline</option>
+              <option value="SUV">SUV</option>
+            </select>
+          </div>
+    </div>
+    <table class="bg-white text-left  w-full ">
+            <caption class="sr-only">
+              Liste des voitures du parc et actions de gestion
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Marque</th>
+                <th scope="col">Modèle</th>
+                <th scope="col">Immatriculation</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Prix / jour</th>
+                <th scope="col">Statut</th>
+              </tr>
+            </thead>
+            <tbody id="liste-voitures">
+              <tr>
+                <td ><strong>Dacia</strong></td>
+                <td>Sandero</td>
+                <td><span class="registration">AUTO-001</span></td>
+                <td>Citadine</td>
+                <td class="price">250 <span>DH / jour</span></td>
+                <td><span class="badge badge-disponible">Disponible</span></td>
+               
+              </tr>
+              
+            </tbody>
+          </table>
+</section>
+    </main>
+
+    <footer class="site-footer flex flex-wrap justify-between mx-4 mt-6 text-sm md:mx-36">
+      <span class="font-extrabold mr-8">AutoPark</span>
+      <p>Une gestion simple, un parc bien organisé.</p>
+    </footer>
+
+    <script type="module" src="js/index.js"></script>
+</body>
+</html>
