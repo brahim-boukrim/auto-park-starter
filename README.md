@@ -10,7 +10,7 @@ Un tableau de bord moderne et performant pour la gestion d'un parc de véhicules
 
 Toutes les tâches de développement, de la gestion des fonctionnalités CRUD à l'intégration de l'interface utilisateur, ont été planifiées et validées avec succès sur Jira :
 
-![Suivi des tickets Jira](./image_LULLWJ.png)
+![Suivi des tickets Jira]![alt text](image.png)
 
 ---
 
