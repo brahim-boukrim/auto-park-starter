@@ -8,16 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body class="bg-[#f4f6fa] m-0">
-    <header class="site-header bg-white pt-5 pb-0.5 border-b-2 border-b-gray-200">
-      <div class="header-content flex flex-wrap items-center justify-between mx-4 mb-5.5 gap-y-3 md:mx-36">
+    <div class=" w-[55vw] bg-white h-screen fixed z-40 top-0 left-0  flex flex-col justify-start gap-6 border-r-2  border-r-gray-200" id="burger" hidden>
+            <a href="index.html" aria-current="page" class="text-[#627184] px-3 py-1 mt-20 rounded-md hover:bg-[#f4f6fa]">Dashboard</a>
+            <a href="voitures.html" class="text-[#627184] px-3 py-1 rounded-md hover:bg-[#f4f6fa]">Gestion du parc</a>
+            <a href="location.html" class="text-[#2449b5] bg-[#ecf1ff] px-3 py-1 rounded-md">Ma location</a>
+        </div>
+    <header class="site-header bg-white pt-5 pb-0.5 border-b-2 sticky top-0 h-20 z-90 border-b-gray-200 ">
+      <div class="header-content flex flex-wrap items-center justify-between mx-4 mb-5.5 gap-y-3 md:mx-36 ">
         <a
-          class="brand flex items-center justify-between gap-3"
+          class="brand flex items-center justify-between gap-3 "
           href="index.html"
           aria-label="AutoPark — Accueil"
         >
           <span class="brand-mark text-2xl font-extrabold flex items-center justify-center w-11 h-11 rounded-xl bg-[#2855d7] text-white" aria-hidden="true">A<span>.</span></span>
-          <span class="flex flex-col justify-center gap-1 font-extrabold text-[22px]">AutoPark<small class="text-[9px] text-[#627184]">ATLAS AUTO</small></span>
+          <span class="flex flex-col justify-center gap-1 font-extrabold text-[22px] ">AutoPark<small class="text-[9px] text-[#627184]">ATLAS AUTO</small></span>
         </a>
+        
         <nav aria-label="Navigation principale" class=" hidden  font-medium justify-between gap-4 mx-auto lg:block md:block">
           <a href="index.html" aria-current="page" class="text-[#627184] px-3 py-1 rounded-md hover:bg-[#f4f6fa]">Dashboard</a>
           <a href="voitures.html" class="text-[#627184] px-3 py-1 rounded-md hover:bg-[#f4f6fa]">Gestion du parc</a>
@@ -27,40 +33,58 @@
         <div class="lg:hidden md:hidden"><i class="fa-solid fa-bars "></i></div>
       </div>
     </header>
-    <main>
-        <section class="m-4">
+    <main class="md:mx-36">
+        <section class="m-4 md:m-0 md:my-4">
             <p class="text-[#2852E3] text-[11px] font-bold">VOTRE LOCATION SUR MESURE</p>
             <h1 class="text-[24px] font-bold py-2">Composez votre location</h1>
             <p class="text-gray-400 text-[14px] font-medium">Votre voiture, vos dates, vos options. À vous de choisir.</p>
             <div class="steps bg-white px-4 py-2 mt-3 flex justify-between rounded-2xl border-2 border-[#D8E1EF]">
-                <div class="step flex flex-col items-center"><p class="bg-[#2852E3] text-white text-[11px] h-[28px] w-[28px] rounded-[50%] flex justify-center items-center">1</p><p class="mt-1 text-[8px] text-[#2852E3]">Véhicule</p></div>
-                <div class="step flex flex-col items-center"><p class="h-[28px] bg-gray-100 text-[11px] w-[28px] rounded-[50%] flex justify-center items-center">2</p><p class="mt-1 text-[8px] text-gray-400" >Récupération</p></div>
-                <div class="step flex flex-col items-center"><p class="h-[28px] bg-gray-100 text-[11px] w-[28px] rounded-[50%] flex justify-center items-center">3</p><p class="mt-1 text-[8px]  text-gray-400">Options</p></div>
-                <div class="step flex flex-col items-center"><p class="h-[28px] bg-gray-100 text-[11px] w-[28px] rounded-[50%] flex justify-center items-center">4</p><p class="mt-1 text-[8px]  text-gray-400">Récapitulatif</p></div>
+                <div class="step flex flex-col items-center md:flex-row md:gap-2"><p class="bg-[#2852E3] text-white text-[11px] h-[28px] w-[28px] rounded-[50%] flex justify-center items-center md:text-lg md:h-[36px] md:w-[36px]">1</p><p class="mt-1 text-[8px] text-[#2852E3] md:text-[14px]">Véhicule</p></div>
+                <div class="step flex flex-col items-center md:flex-row md:gap-2"><p class="h-[28px] bg-gray-100 text-[11px] w-[28px] rounded-[50%] flex justify-center items-center md:text-lg md:h-[36px] md:w-[36px]">2</p><p class="mt-1 text-[8px] text-gray-400 md:text-[14px]" >Récupération</p></div>
+                <div class="step flex flex-col items-center md:flex-row md:gap-2"><p class="h-[28px] bg-gray-100 text-[11px] w-[28px] rounded-[50%] flex justify-center items-center md:text-lg md:h-[36px] md:w-[36px]">3</p><p class="mt-1 text-[8px]  text-gray-400 md:text-[14px]">Options</p></div>
+                <div class="step flex flex-col items-center md:flex-row md:gap-2"><p class="h-[28px] bg-gray-100 text-[11px] w-[28px] rounded-[50%] flex justify-center items-center md:text-lg md:h-[36px] md:w-[36px]">4</p><p class="mt-1 text-[8px]  text-gray-400 md:text-[14px] md:mr-36">Récapitulatif</p></div>
 
             </div>
         </section>
-        <section class="m-4  bg-white px-4 py-2 rounded-2xl border-2 border-[#D8E1EF]">
+        <section class="grid grid-cols-1 gap-4 md:grid-cols-[5fr_2fr]">
+        <section class="m-4 md:my-4  bg-white px-4 py-2 rounded-2xl border-2 border-[#D8E1EF] md:m-0">
             <p class="text-[#2852E3] text-[11px] font-medium">01 / VÉHICULE</p>
             <h2 class="font-bold text-[22px] my-2">Choisissez votre véhicule</h2>
             <p class="text-gray-400 text-[14px]">Sélectionnez une voiture disponible et votre période de location.</p>
 
-            <div id="list" class=" grid grid-cols-1 lg:grid-cols-3 border-b-2 border-gray-200 py-3">
-                <div class="border-2 border-[#2852E3] rounded-2xl p-2" >
-                    <div class="py-0.5 flex justify-between"><p class="bg-[#EEF2FF] text-[#2852E3] rounded-md font-bold text-[11px] px-2 py-1 pr-6">citadine</p> <div class="bg-[#2852E3] h-[18px] w-[18px] rounded-[50%] flex justify-center items-center"> <div class="h-[8px] w-[8px] rounded-[50%] bg-white" ></div> </div> </div>
-                    <p class="py-0.5  text-[16px] font-bold">dacia</p>
+            <div id="list" class="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-3 border-b-2 border-gray-200 py-3">
+                <label class="border-2 border-gray-200 has-[:checked]:border-[#2852E3] rounded-2xl p-2 cursor-pointer" for="1">
+                    <div class="py-0.5 flex justify-between">
+                        <p class="bg-[#EEF2FF] text-[#2852E3] rounded-md font-bold text-[11px] px-2 py-1 pr-6">citadine</p>
+                        <input type="radio" name="choice" id="1" class="appearance-none w-5 h-5 rounded-full bg-white border-2 border-gray-300 checked:border-[6px] checked:border-[#2852E3] cursor-pointer">
+                    </div>
+                    <p class="py-0.5 text-[16px] font-bold">dacia</p>
                     <p class="py-0.5 text-[#16835C] text-[12px]">disponible</p>
                     <p class="py-0.5 text-[#2852E3] text-[16px] font-bold">250 dh</p>
-                </div>
+                </label>
+
+                <label class="border-2 border-gray-200 has-[:checked]:border-[#2852E3] rounded-2xl p-2 cursor-pointer" for="2">
+                    <div class="py-0.5 flex justify-between">
+                        <p class="bg-[#EEF2FF] text-[#2852E3] rounded-md font-bold text-[11px] px-2 py-1 pr-6">citadine</p>
+                        <input type="radio" name="choice" id="2" class="appearance-none w-5 h-5 rounded-full bg-white border-2 border-gray-300 checked:border-[6px] checked:border-[#2852E3] cursor-pointer">
+                    </div>
+                    <p class="py-0.5 text-[16px] font-bold">dacia</p>
+                    <p class="py-0.5 text-[#16835C] text-[12px]">disponible</p>
+                    <p class="py-0.5 text-[#2852E3] text-[16px] font-bold">250 dh</p>
+                </label>
             </div>
 
             <div class="border-b-2 border-gray-200 ">
                 <h3 class="text-[17px] font-bold my-3">Votre période de location</h3>
-                <div class="flex flex-col justify-between gap-1">
-                    <label class="text-[14px] font-medium">Date de début *</label>
-                    <input class="border-2 rounded-md border-gray-200 mb-0.5" type="text">
-                    <label class="text-[14px] font-medium">Date de fin *</label>
-                    <input class="border-2 rounded-md border-gray-200" type="text">
+                <div class="grid grid-cols-1  gap-4 md:grid-cols-2">
+                    <div  class="flex flex-col justify-between gap-1">
+                        <label class="text-[14px] font-medium">Date de début *</label>
+                        <input class="border-2 rounded-md border-gray-200" type="date" id="start">
+                    </div>
+                    <div  class="flex flex-col justify-between gap-1">
+                        <label class="text-[14px] font-medium">Date de fin *</label>
+                        <input class="border-2 rounded-md border-gray-200" type="date" id="fin">
+                </div>
                 </div>
                 <h3 class="bg-[#EEF2FF] text-[#2852E3] rounded-md p-2 my-3 text-[13px]">Durée : 3 jours. Les dates de début et de fin sont incluses.</h3>
             </div>
@@ -70,7 +94,7 @@
             </div>
         </section>
 
-        <section class="m-4  bg-white px-4 py-2 rounded-2xl border-2 border-[#D8E1EF]">
+        <section class="md:m-0 md:my-4 m-4  bg-white px-4 py-2 rounded-2xl border-2 border-[#D8E1EF] h-fit ">
             <div class="border-b-2  border-gray-200 py-3">
                 <p class="text-[#2852E3] text-[11px] font-medium ">VOTRE LOCATION</p>
                 <h3 class="text-[17px] font-bold py-3">Dacia Sandero</h3>
@@ -88,7 +112,7 @@
                 <button  class="text-gray-400 text-[14px] bg-gray-100 p-2 rounded-md pr-14">Une demande, sans paiement en ligne.</button>
             </div>
         </section>
-
+    </section>
     </main>
 
 
