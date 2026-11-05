@@ -337,6 +337,9 @@
   .mb-0\.5 {
     margin-bottom: calc(var(--spacing) * 0.5);
   }
+  .mb-3 {
+    margin-bottom: calc(var(--spacing) * 3);
+  }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
   }
@@ -363,6 +366,9 @@
   }
   .box-border {
     box-sizing: border-box;
+  }
+  .\!flex {
+    display: flex !important;
   }
   .flex {
     display: flex;
@@ -499,6 +505,12 @@
   .max-w-7xl {
     max-width: var(--container-7xl);
   }
+  .flex-shrink {
+    flex-shrink: 1;
+  }
+  .shrink-0 {
+    flex-shrink: 0;
+  }
   .border-collapse {
     border-collapse: collapse;
   }
@@ -523,8 +535,14 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
+  .\!items-center {
+    align-items: center !important;
+  }
   .items-center {
     align-items: center;
+  }
+  .\!justify-center {
+    justify-content: center !important;
   }
   .justify-around {
     justify-content: space-around;
@@ -534,6 +552,9 @@
   }
   .justify-center {
     justify-content: center;
+  }
+  .justify-end {
+    justify-content: flex-end;
   }
   .justify-start {
     justify-content: flex-start;
@@ -963,6 +984,9 @@
   }
   .has-\[\:checked\]\:border-\[\#2852E3\]:has(:is(:checked)) {
     border-color: #2852E3;
+  }
+  .has-\[\:checked\]\:bg-\[\#EEF2FF\]:has(:is(:checked)) {
+    background-color: #EEF2FF;
   }
   @media (width >= 40rem) {
     .sm\:grid-cols-2 {
