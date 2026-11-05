@@ -281,7 +281,7 @@ const sortFunc=(table)=>{
         const sortcroi=[...table]
         for(let i=0;i<sortcroi.length;i++){
             for(let j=0;j<sortcroi.length-1;j++){
-                if(Number(sortdec[j].prixJour)> Number(sortdec[j+1].prixJour)){
+                if(Number(sortcroi[j].prixJour)> Number(sortcroi[j+1].prixJour)){
                     [sortcroi[j],sortcroi[j+1]]=[sortcroi[j+1],sortcroi[j]]
                 }
             }
